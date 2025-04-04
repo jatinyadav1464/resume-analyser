@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Resume Analyzer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: radial-gradient(circle, #1a1a2e, #16213e);
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .navbar {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 20px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #ff0099;
+        }
+
+        .new-resume {
+            background: linear-gradient(90deg, #b70771, #493240);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 0, 153, 0.6);
+        }
+
+        .new-resume:hover {
+            background: linear-gradient(90deg, #b70771, #6d214f);
+            box-shadow: 0 0 25px rgba(255, 0, 153, 0.8);
+        }
+
+    
+
+
+        .container {
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h2 {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .upload-box {
+            border: 2px dashed rgba(255, 255, 255, 0.5);
+            padding: 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .upload-box:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-custom {
+            background: linear-gradient(90deg, #ff0099, #493240);
+            color: white;
+            padding: 15px;
+            border: none;
+            width: 100%;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 0, 153, 0.6);
+        }
+
+        .btn-custom:hover {
+            background: linear-gradient(90deg, #ff0099, #6d214f);
+            box-shadow: 0 0 25px rgba(255, 0, 153, 0.8);
+        }
+
+        footer {
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            font-size: 14px;
+            color: #bbb;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="#about">About Us</a>
+        <a href="/contact">Contact</a>
+        <a class="new-resume" href="make_resume.html">Make Resume</a>
+        
+    </div>
+    <div class="container">
+        <h2><i class="fa-solid fa-file-alt"></i> AI Resume Analyzer</h2>
+        <p>Upload your resume for instant analysis and feedback.</p>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <label for="file-upload" class="upload-box">Drag & Drop or Click to Upload</label>
+            <input id="file-upload" type="file" name="file" required style="display: none;">
+            <br><br>
+            <button type="submit" class="btn-custom">Analyze Resume</button>
+        </form>
+    </div>
+    <footer>
+        &copy; 2025 AI Resume Analyzer | All rights reserved.
+    </footer>
+</body>
+</html>

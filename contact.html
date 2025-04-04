@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - AI Resume Analyzer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: radial-gradient(circle, #1a1a2e, #16213e);
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            animation: bgAnimation 10s infinite alternate;
+        }
+
+        @keyframes bgAnimation {
+            0% { background: radial-gradient(circle, #1a1a2e, #16213e); }
+            100% { background: radial-gradient(circle, #16213e, #0f3460); }
+        }
+
+        .navbar {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .navbar a:hover {
+            color: #ff0099;
+        }
+
+        .container {
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease-in-out;
+            text-align: left;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h2 {
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .contact-info {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #ddd;
+            text-align: center;
+        }
+
+        .contact-info i {
+            margin-right: 10px;
+            color: #ff0099;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.3);
+            outline: none;
+            border-left: 4px solid #ff0099;
+            box-shadow: 0 0 10px rgba(255, 0, 153, 0.6);
+        }
+
+        .btn-custom {
+            background: linear-gradient(90deg, #ff0099, #493240);
+            color: white;
+            padding: 15px;
+            border: none;
+            width: 100%;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: 0.3s ease;
+            box-shadow: 0 0 15px rgba(255, 0, 153, 0.6);
+        }
+
+        .btn-custom:hover {
+            background: linear-gradient(90deg, #ff0099, #6d214f);
+            box-shadow: 0 0 25px rgba(255, 0, 153, 0.8);
+            transform: scale(1.05);
+        }
+
+        .flash-messages {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #28a745;
+            background: rgba(40, 167, 69, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(40, 167, 69, 0.4);
+        }
+
+        footer {
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            font-size: 14px;
+            color: #bbb;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="#about">About Us</a>
+        <a href="contact.html">Contact</a>
+    </div>
+    <div class="container">
+        <h2><i class="fa-solid fa-envelope"></i> Contact Us</h2>
+        <p class="contact-info"><i class="fa-solid fa-phone"></i> +123 456 7890</p>
+        <p class="contact-info"><i class="fa-solid fa-envelope"></i> contact@resumeanalyzer.com</p>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        <form action="/contact" method="post">
+            <div class="form-group">
+                <input type="text" class="form-control" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" class="form-control" name="phone" placeholder="Your Phone" required>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" name="message" rows="4" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn-custom">Send Message</button>
+        </form>
+    </div>
+    <footer>
+        &copy; 2025 AI Resume Analyzer | All rights reserved.
+    </footer>
+</body>
+</html>

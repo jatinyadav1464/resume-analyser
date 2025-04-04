@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analysis Result</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f4f4; /* Light gray background for a professional look */
+            font-family: 'Montserrat', sans-serif;
+            color: #333; /* Darker text for better readability */
+            animation: fadeIn 1.2s ease-in-out;
+            overflow-x: hidden;
+            cursor: url('https://example.com/custom-cursor.png'), auto; /* Custom cursor */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: #ffffff; /* White background for the container */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        h2 {
+            text-align: center;
+            font-weight: 700;
+            color: #007bff; /* Blue color for headings */
+            margin-bottom: 30px;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background: #007bff; /* Blue underline */
+            margin: 10px auto;
+            border-radius: 5px;
+        }
+
+        .score-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(#007bff var(--score-percentage), #e0e0e0 var(--score-percentage));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff; /* White text for score */
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+ animation: pulse 2s infinite; /* Pulsing animation */
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .score-circle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+        }
+
+        .info-card {
+            background: #f8f9fa; /* Light background for cards */
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .list-group-item {
+            background: #e9ecef; /* Light gray for list items */
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            color: #333; /* Dark text for better readability */
+            transition: background 0.3s;
+        }
+
+        .list-group-item:hover {
+            background: #d3d3d3; /* Darker gray on hover */
+        }
+
+        .btn-custom {
+            background: #007bff; /* Blue button */
+            color: #fff; /* White text */
+            font-weight: bold;
+            border-radius: 8px;
+            padding: 10px 20px;
+            margin-left: 300px;
+            transition: background 0.3s, transform 0.3s;
+            border: none;
+        }
+
+        .btn-custom:hover {
+            background: #0056b3; /* Darker blue on hover */
+            transform: scale(1.05);
+        }
+
+        .card {
+            background: #f8f9fa; /* Light background for job cards */
+            border: none;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-title {
+            color: #007bff; /* Blue color for card titles */
+        }
+
+        .section-title {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #007bff; /* Blue color for section titles */
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: #666; /* Dark gray for footer text */
+        }
+
+        /* Highlight styles */
+        .highlight {
+            background: rgba(0, 123, 255, 0.1); /* Light blue highlight */
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .highlight h5 {
+            color: #007bff; /* Blue color for highlighted section titles */
+        }
+
+        /* Job card styles */
+        .job-card {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        transition: transform 0.3s, box-shadow 0.3s;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .job-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .apply-btn {
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        background: #007bff;
+        color: white;
+        font-weight: bold;
+        border-radius: 5px;
+        padding: 8px 14px;
+        font-size: 0.9rem;
+        border: none;
+        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    .job-card:hover .apply-btn {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .apply-btn:hover {
+        background: #0056b3;
+        transform: scale(1.05);
+    }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .btn-learn {
+            background: #007bff;
+            color: white;
+            font-weight: 600;
+            border-radius: 5px;
+            padding: 6px 18px;
+            margin-left: 30px;
+            transition: background 0.3s, transform 0.3s;
+            border: 1px solid #0056b3;
+            font-size: 0.9rem;
+        }
+
+        .btn-learn:hover {
+            background: #0056b3;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2><i class="fa-solid fa-file-lines"></i> Resume Analysis Result</h2>
+
+ <!-- User Info Card -->
+        <div class="info-card fade-in" id="userInfo">
+            <p><strong><i class="fa-solid fa-user"></i> Name:</strong> {{ name }}</p>
+            <p><strong><i class="fa-solid fa-envelope"></i> Email:</strong> {{ email }}</p>
+            <p><strong><i class="fa-solid fa-phone"></i> Phone:</strong> {{ phone }}</p>
+            <p><strong><i class="fa-solid fa-laptop-code"></i> Skills:</strong> {{ skills }}</p>
+        </div>
+
+        <!-- Resume Score Section -->
+        <h5 class="section-title fade-in" id="resumeScore"><i class="fa-solid fa-star"></i> Resume Score</h5>
+        <div class="score-container">
+            <div class="score-circle" data-score-percentage="{{ score * 10 }}">{{ score }}/10</div>
+        </div>
+        <div class="progress mt-3" style="height: 10px; border-radius: 5px;">
+            <div class="progress-bar bg-warning" role="progressbar" id="progressBar" aria-valuenow="{{ score * 10 }}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+
+        <!-- Score Breakdown Accordion -->
+        <div class="accordion mt-3 fade-in" id="scoreBreakdown">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button bg-warning text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <i class="fa-solid fa-chart-pie"></i> How is my score calculated?
+                    </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#scoreBreakdown">
+                    <div class="accordion-body">
+                        <ul>
+                            <li><strong>Skills Match:</strong> 40%</li>
+                            <li><strong>Experience:</strong> 30%</li>
+                            <li><strong>Education:</strong> 20%</li>
+                            <li><strong>Formatting:</strong> 10%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skill Gap Analysis Section -->
+        <h5 class="section-title fade-in" id="skillGap"><i class="fa-solid fa-chart-bar"></i> Skill Gap Analysis</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="highlight">
+                    <h5>Your Skills</h5>
+                    <p>Python: 70%</p>
+                    <p>JavaScript: 50%</p>
+                    <p>Data Analysis: 60%</p>
+                    <p>Project Management: 40%</p>
+                    <p>Communication: 80%</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="highlight">
+                    <h5>Required Skills</h5>
+                    <p>Python: 90%</p>
+                    <p>JavaScript: 80%</p>
+                    <p>Data Analysis: 85%</p>
+                    <p>Project Management: 70%</p>
+                    <p>Communication: 90%</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Suggested Skills Section -->
+        <h2 class="section-title"><i class="fa-solid fa-lightbulb"></i> Suggested Skills</h2>
+<ul class="list-group mb-4">
+    <li class="list-group-item">Machine Learning 
+        <a href="https://www.coursera.org/learn/machine-learning" target="_blank" class="btn btn-learn">Learn Skill</a>
+    </li>
+    <li class="list-group-item">Cloud Computing 
+        <a href="https://www.udemy.com/course/aws-certified-solutions-architect-associate/" target="_blank" class="btn btn-learn">Learn Skill</a>
+    </li>
+    <li class="list-group-item">Web Development 
+        <a href="https://www.freecodecamp.org/" target="_blank" class="btn btn-learn">Learn Skill</a>
+    </li>
+    <li class="list-group-item">Data Visualization 
+        <a href="https://www.datacamp.com/courses/data-visualization-with-python" target="_blank" class="btn btn-learn">Learn Skill</a>
+    </li>
+    <li class="list-group-item">Agile Methodologies 
+        <a href="https://www.scrum.org/" target="_blank" class="btn btn-learn">Learn Skill</a>
+    </li>
+</ul>
+
+
+        <!-- Suggested Jobs Section -->
+        <h5 class="section-title fade-in" id="suggestedJobs"><i class="fa-solid fa-briefcase"></i> Suggested Jobs</h5>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="job-card">
+                    <h5 class="job-title">Data Scientist</h5>
+                    <p>Location: Remote</p>
+                    <p>Skills Required: Python, Data Analysis, Machine Learning</p>
+                    <a href="https://www.linkedin.com/jobs/data-scientist-jobs-gurugram/?currentJobId=4166785731&originalSubdomain=in" target="_blank" class="apply-btn">Apply</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="job-card">
+                    <h5 class="job-title">Web Developer</h5>
+                    <p>Location: On-site</p>
+                    <p>Skills Required: JavaScript, HTML, CSS</p>
+                    <a href="https://www.linkedin.com/jobs/web-developer-jobs-gurgaon/?currentJobId=4150370447&originalSubdomain=inr" target="_blank" class="apply-btn">Apply</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="job-card">
+                    <h5 class="job-title">Project Manager</h5>
+                    <p>Location: Hybrid</p>
+                    <p>Skills Required: Project Management, Communication, Agile</p>
+                    <a href="https://www.linkedin.com/jobs/project-management-jobs-gurugram/?currentJobId=4158092935&originalSubdomain=in" target="_blank" class="apply-btn">Apply</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="job-card">
+                    <h5 class="job-title">Business Analyst</h5>
+                    <p>Location: Remote</p>
+                    <p>Skills Required: Data Analysis, Communication, Problem Solving</p>
+                    <a href="https://www.linkedin.com/jobs/business-analyst-jobs-gurugram/?currentJobId=4170690423&originalSubdomain=in" target="_blank" class="apply-btn">Apply</a>
+                </div>
+            </div>
+        </div>
+
+       
+
+   
+
+  <!-- AI-Driven Networking Opportunities -->
+<div class="container mt-5">
+    <h2>User Profile</h2>
+    <form id="userProfileForm">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="skills" class="form-label">Skills (comma-separated)</label>
+            <input type="text" class="form-control" id="skills" required>
+        </div>
+        <div class="mb-3">
+            <label for="interests" class="form-label">Interests (comma-separated)</label>
+            <input type="text" class="form-control" id="interests" required>
+        </div>
+        <div class="mb-3">
+            <label for="careerGoals" class="form-label">Career Goals</label>
+            <textarea class="form-control" id="careerGoals" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <div id="suggestions" class="mt-4"></div>
+    <div id="certificationSection" class="mt-4" style="display: none;">
+        <h3>Recommended Courses for Certification</h3>
+        <div id="courseSuggestions"></div>
+    </div>
+</div>
+
+<div class="action-buttons">
+    <button id="downloadReport" class="btn btn-custom"><i class="fa-solid fa-download"></i> Download Report</button>
+</div>
+
+<div class="footer">
+    <p>&copy; 2025 Resume Analysis Tool. All rights reserved.</p>
+</div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $('#userProfileForm').on('submit', function(event) {
+        event.preventDefault();
+        const name = $('#name').val();
+        const skills = $('#skills').val().split(',').map(skill => skill.trim());
+        const interests = $('#interests').val().split(',').map(interest => interest.trim());
+        const careerGoals = $('#careerGoals').val();
+
+        // Call the AI suggestion function
+        getNetworkingSuggestions({ name, skills, interests, careerGoals });
+    });
+
+    function getNetworkingSuggestions(profile) {
+        // Simulate an API call to get suggestions
+        const suggestions = analyzeProfile(profile);
+        displaySuggestions(suggestions);
+        displayCertificationCourses(profile.skills); // Show certification courses based on skills
+    }
+
+    function analyzeProfile(profile) {
+        // Placeholder for AI analysis logic
+        const events = [
+            { 
+                name: "Tech Conference 2023", 
+                description: "A conference for tech enthusiasts.", 
+                link: "https://example.com/tech-conference-2023",
+                skills: ["JavaScript", "AI", "Cloud Computing", "Cybersecurity", "Blockchain"] 
+            },
+            { 
+                name: "Data Science Meetup", 
+                description: "Networking event for data scientists.", 
+                link: "https://example.com/data-science-meetup",
+                skills: ["Data Analysis", "Python", "Machine Learning", "Deep Learning", "Big Data"] 
+            },
+            { 
+                name: "Web Development Workshop", 
+                description: "Hands-on workshop for web developers.", 
+                link: "https://webdevworkshop.io/",
+                skills: ["HTML", "CSS", "JavaScript", "React.js", "Node.js", "Bootstrap"] 
+            },
+            { 
+                name: "AI & Machine Learning Summit", 
+                description: "A summit discussing trends in AI and ML.", 
+                link: "https://example.com/ai-ml-summit",
+                skills: ["Artificial Intelligence", "Machine Learning", "TensorFlow", "NLP", "Computer Vision"] 
+            },
+            { 
+                name: "Cybersecurity Bootcamp", 
+                description: "An intensive bootcamp on cybersecurity.", 
+                link: "https://example.com/cybersecurity-bootcamp",
+                skills: ["Cybersecurity", "Ethical Hacking", "Penetration Testing", "Network Security", "Cryptography"] 
+            },
+            { 
+                name: "Cloud Computing Expo", 
+                description: "An expo focused on cloud technologies.", 
+                link: "https://example.com/cloud-computing-expo",
+                skills: ["AWS", "Azure", "Google Cloud", "DevOps", "Kubernetes"] 
+            },
+            { 
+                name: "Startup Pitch Night", 
+                description: "Event for aspiring entrepreneurs to pitch ideas.", 
+                link: "https://example.com/startup-pitch-night",
+                skills: ["Entrepreneurship", "Business Development", "Marketing", "Product Management", "Networking"] 
+            }
+        ];
+
+        // Simple filtering based on skills
+        const matchedEvents = events.filter(event => 
+            profile.skills.some(skill => event.skills.includes(skill))
+        );
+
+        return matchedEvents;
+    }
+
+    function displaySuggestions(suggestions) {
+        const suggestionsDiv = $('#suggestions');
+        suggestionsDiv.empty();
+
+        if (suggestions.length === 0) {
+            suggestionsDiv.append('<p>No networking opportunities found.</p>');
+            return;
+        }
+
+        suggestionsDiv.append('<h3>Suggested Networking Opportunities:</h3>');
+        suggestions.forEach(event => {
+            suggestionsDiv.append(`
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">${event.name}</h5>
+                        <p class="card-text">${event.description}</p>
+                        <a href="${event.link}" class="btn btn-primary" target="_blank">View Event</a>
+                    </div>
+                </div>
+            `);
+        });
+    }
+
+    function displayCertificationCourses(skills) {
+        const courses = [
+            { 
+                title: "JavaScript Certification Course", 
+                description: "Become proficient in JavaScript.", 
+                link: "https://example.com/javascript-certification", 
+                skills: ["JavaScript"] 
+            },
+            { 
+                title: "Data Science Certification", 
+                description: "Master data science and analytics.", 
+                link: "https://example.com/data-science-certification", 
+                skills: ["Data Analysis", "Python"] 
+            },
+            { 
+                title: "Web Development Certification", 
+                description: "Learn full-stack web development.", 
+                link: "https://www.coursera.org/learn/fullstack-web-development", 
+                skills: ["HTML", "CSS", "JavaScript"] 
+            },
+            { 
+                title: "AI & Machine Learning Certification", 
+                description: "Get certified in AI and ML.", 
+                link: "https://example.com/ai-certification", 
+                skills: ["Artificial Intelligence", "Machine Learning"] 
+            },
+            { 
+                title: "Cybersecurity Certification", 
+                description: "Become a certified cybersecurity expert.", 
+                link: "https://example.com/cybersecurity-certification", 
+                skills: ["Cybersecurity"] 
+            },
+            { 
+                title: "Cloud Computing Certification", 
+                description: "Get certified in cloud technologies.", 
+                link: "https://example.com/cloud-certification", 
+                skills: ["AWS", "Azure"] 
+            }
+        ];
+
+        const matchedCourses = courses.filter(course => 
+            skills.some(skill => course.skills.includes(skill))
+        );
+
+        const courseSuggestionsDiv = $('#courseSuggestions');
+        courseSuggestionsDiv.empty();
+
+        if (matchedCourses.length === 0) {
+            courseSuggestionsDiv.append('<p>No certification courses found for your skills.</p>');
+            return;
+        }
+
+        matchedCourses.forEach(course => {
+            courseSuggestionsDiv.append(`
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">${course.title}</h5>
+                        <p class="card-text">${course.description}</p>
+                        <a href="${course.link}" class="btn btn-success" target="_blank">Get Certification</a>
+                    </div>
+                </div>
+            `);
+        });
+
+
+        $('#certificationSection').show(); // Show the certification section
+    }
+</script>
+
+    <!-- JavaScript for Dynamic Features -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var scoreCircle = document.querySelector('.score-circle');
+            var scorePercentage = scoreCircle.getAttribute('data-score-percentage') + '%';
+            scoreCircle.style.setProperty('--score-percentage', scorePercentage);
+
+            var progressBar = document.getElementById('progressBar');
+            var score = parseFloat('{{ score }}');
+            progressBar.style.width = (score * 10) + '%';
+
+            document.getElementById('downloadReport').addEventListener('click', function() {
+                alert('Downloading report...');
+            });
+
+            // Scroll Animation
+            const fadeInElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+
+            fadeInElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
